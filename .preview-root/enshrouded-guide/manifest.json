@@ -1,0 +1,21 @@
+{
+  "name": "Enshrouded Wiki",
+  "short_name": "EnshGuide",
+  "description": "An unofficial player-made guide for Enshrouded 1.0: Cinder's Cradle, Sparkworks, 1.0 builds and the post-1.0 beginner route — verified against the 1.0 patch notes and dated.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#c1571a",
+  "icons": [
+    {
+      "src": "android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
