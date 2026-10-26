@@ -1,0 +1,199 @@
+---
+/**
+ * CinematicHero — full-bleed "title sequence" for the wiki homepage.
+ *
+ * One official trailer still, a slow push-in, layered scrims + film grain, and
+ * a film-poster type treatment: wide-tracked Cormorant caps over a dark ridge.
+ * The image is the LCP element, so it loads eagerly with a high fetch priority
+ * and Astro generates the responsive srcset at build time.
+ *
+ * Copy arrives from `home.hero` in the locale JSON; the still itself comes from
+ * `src/config/cinematic.ts` (credited on the page, linked to the trailer).
+ */
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import type { ImageMetadata } from 'astro';
+import { type Locale } from '~/i18n/routing';
+import { localizePath } from '~/lib/url';
+
+interface Props {
+  locale: Locale;
+  /** Full H1 text (also used as the aria label). */
+  title: string;
+  titleLead: string;
+  titleTail: string;
+  eyebrow: string;
+  metaLabel: string;
+  description: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  trailerLabel?: string;
+  hasTrailer?: boolean;
+  image: ImageMetadata;
+  imageAlt: string;
+  imageCredit: string;
+  imageCreditHref: string;
+  chapters?: Array<{ label: string; href: string }>;
+}
+
+const {
+  locale,
+  title,
+  titleLead,
+  titleTail,
+  eyebrow,
+  metaLabel,
+  description,
+  primaryLabel,
+  primaryHref,
+  secondaryLabel,
+  secondaryHref,
+  trailerLabel,
+  hasTrailer = false,
+  image,
+  imageAlt,
+  imageCredit,
+  imageCreditHref,
+  chapters = [],
+} = Astro.props;
+
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+const resolveHref = (href: string) => (isExternal(href) ? href : localizePath(href, locale));
+---
+
+<section
+  class="relative isolate flex min-h-[calc(100vh-3.5rem)] min-h-[calc(100svh-3.5rem)] flex-col overflow-hidden bg-cinema-bg text-white"
+>
+  <Image
+    src={image}
+    alt={imageAlt}
+    widths={[640, 960, 1280, 1920, 2560]}
+    sizes="100vw"
+    loading="eager"
+    fetchpriority="high"
+    quality={82}
+    class="hero-media absolute inset-0 -z-10 h-full w-full object-cover object-[56%_50%]"
+  />
+
+  {/* Layered matte + vignette: readable type on the left, a dark foot for the
+      credits row, and a faint film-grain plate over the whole frame. */}
+  <div class="cinema-scrim-left" aria-hidden="true"></div>
+  <div class="cinema-scrim-bottom" aria-hidden="true"></div>
+  <div class="cinema-vignette" aria-hidden="true"></div>
+  <div class="film-grain" aria-hidden="true"></div>
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-cinema-bg to-transparent"
+  >
+  </div>
+
+  <div class="relative z-10 flex flex-1 flex-col justify-end px-4 pb-8 pt-16 sm:pb-10 sm:pt-24 md:pb-14">
+    <div class="mx-auto w-full max-w-7xl">
+      <div class="max-w-3xl">
+        <p class="hero-rise cinema-eyebrow flex items-center gap-3 text-white/60">
+          <span class="h-px w-8 bg-nav-light" aria-hidden="true"></span>
+          {eyebrow}
+        </p>
+
+        <h1
+          aria-label={title}
+          class="hero-rise hero-rise-2 mt-6 font-display font-medium uppercase leading-[0.86] tracking-[0.045em] text-white"
+          style="font-size: clamp(2.4rem, 11.2vw, 7.4rem)"
+        >
+          <span class="block">{titleLead}</span>
+          <span
+            class="mt-4 flex items-baseline gap-3 text-[clamp(1.05rem,2vw,1.6rem)] leading-none tracking-[0.42em] text-white/70"
+          >
+            <span class="mb-[0.4em] h-px w-8 bg-white/40 sm:w-12" aria-hidden="true"></span>
+            {titleTail}
+          </span>
+        </h1>
+
+        <p class="hero-rise hero-rise-3 mt-7 max-w-xl text-base leading-relaxed text-white/70 md:text-lg">
+          {description}
+        </p>
+
+        <div class="hero-rise hero-rise-4 mt-9 flex flex-wrap items-center gap-3">
+          {
+            primaryLabel && primaryHref && (
+              <a
+                href={resolveHref(primaryHref)}
+                target={isExternal(primaryHref) ? '_blank' : undefined}
+                rel={isExternal(primaryHref) ? 'noopener noreferrer' : undefined}
+                class="group inline-flex items-center gap-3 rounded-full bg-cinema-paper px-6 py-3 text-sm font-semibold text-cinema-ink transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                {primaryLabel}
+                <Icon
+                  name="lucide:arrow-right"
+                  class="h-4 w-4 transition group-hover:translate-x-0.5"
+                />
+              </a>
+            )
+          }
+          {
+            secondaryLabel && secondaryHref && (
+              <a
+                href={resolveHref(secondaryHref)}
+                target={isExternal(secondaryHref) ? '_blank' : undefined}
+                rel={isExternal(secondaryHref) ? 'noopener noreferrer' : undefined}
+                class="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-medium text-white/90 transition hover:border-white/60 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                {secondaryLabel}
+              </a>
+            )
+          }
+          {
+            trailerLabel && hasTrailer && (
+              <a
+                href="#trailer"
+                class="ml-1 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/50 transition hover:text-white"
+              >
+                <Icon name="lucide:play" class="h-3.5 w-3.5" />
+                {trailerLabel}
+              </a>
+            )
+          }
+        </div>
+      </div>
+
+      {/* Film-credit strip: release line, chapter links, still attribution. */}
+      <div class="hero-rise hero-rise-5 mt-8 border-t border-white/15 pt-5 md:mt-16">
+        <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
+            <span class="cinema-eyebrow hidden text-nav-light sm:inline">{metaLabel}</span>
+            <span class="hidden h-3 w-px bg-white/20 sm:block" aria-hidden="true"></span>
+            <div
+              class="no-scrollbar flex w-full items-center gap-x-5 overflow-x-auto pb-1 sm:w-auto sm:overflow-visible"
+            >
+              {
+                chapters.map((chapter) => (
+                  <a
+                    href={resolveHref(chapter.href)}
+                    class="group inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[10px] uppercase tracking-[0.2em] text-white/55 transition hover:text-white"
+                  >
+                    {chapter.label}
+                    <Icon
+                      name="lucide:arrow-up-right"
+                      class="h-3 w-3 opacity-0 transition group-hover:opacity-100"
+                    />
+                  </a>
+                ))
+              }
+            </div>
+          </div>
+          <a
+            href={imageCreditHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hidden items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-white/50 transition hover:text-white/75 sm:inline-flex"
+          >
+            <Icon name="lucide:film" class="h-3 w-3 shrink-0" />
+            {imageCredit}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

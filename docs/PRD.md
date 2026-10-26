@@ -613,21 +613,28 @@ export const defaultLocale: Locale = 'en';
 **渲染**：`src/pages/[locale]/index.astro` 读 JSON，逐 section 渲染。
 **交互**：移动端菜单用原生 `<details>`。FAQ 已移至独立 `/faq` 页（见 §7.4）。
 
-**首页结构（从上到下，v0.2 重构后）**：
+**首页结构（从上到下，v2.36+ 电影感改版后）**：
 ```
 1. SiteHeader（导航栏）
-2. Hero（满屏视觉锚点：超大标题 + 1 行描述 + 2 CTA）
-   └─ 背景水印（游戏名，纯 CSS）；stats 卡片已移除（避免抢首屏焦点）
-3. VideoSection（YouTube 嵌入；仅当 hero.videoId 非空时渲染）
-4. QuickStart（4 个大图标卡片：新手指南 / 最新 Codes / Boss 攻略 / Tier List）
-   └─ 紧跟 Hero，对标竞品"quick actions"模式
-5. RecentUpdates + Trending（两栏：左 2/3 最近更新卡片网格 + 右 1/3 热门链接列表）
-6. ExploreModules（4 个核心模块，2×2 网格，整卡可点击）
-7. ClosingCta（底部 CTA）
-8. SiteFooter（含 FAQ 链接）
+2. CinematicHero（全幅官方预告片剧照：电影海报式大标题 + 1 行描述 + 2 CTA
+   + 章节链接行 + 剧照署名；慢速推镜/颗粒/暗角，prefers-reduced-motion 下静止）
+3. VideoSection（深色影院带：官方 1.0 预告片 + 字幕式说明与署名）
+4. StatsStrip（1.0 at a glance：6 个已核验数字 + 来源注记 + 校验方法链接）
+5. QuickStart（4 张有序剧照卡：Beginner Route / 1.0 Builds / Sparkworks /
+   Cinder's Cradle；image 键可选，缺省回退为图标卡）
+6. RecentUpdates + 1.0 索引（左 2/3 编辑式文章索引 + 右 1/3 核心页面链接）
+7. QuickAnswers + Method（4 条带来源链接的快捷问答 + 深色「How this wiki is dated」卡）
+8. ClosingCta（月下坐骑剧照 + 旅程 CTA + 剧照署名）
+9. SiteFooter（含 FAQ 链接）
 ```
 
-**v0.2 重构说明**（相比 v0.1）：
+首页为 `fullBleed` 布局：深色影院带（Hero / Trailer / ClosingCta / Method 卡）使用主题无关的
+`--cinema-*` 令牌，阅读区块继续跟随站点亮/暗主题。剧照来源、裁切与署名记录在
+`src/assets/cinematic/CREDITS.md`，页面内链回官方预告片。StatsStrip / QuickAnswers
+参考同行 wiki（wiki.gg 的更新/数字引导、Pindrop 的阶段入口与数据透明度、IGN 的
+Getting Started/Top Guides），但只保留本项目有事实来源的部分，不铺空目录。
+
+**v0.2 重构说明（历史）**：
 - 首页从 8 区块压缩到 5 区块，页面长度从 ~7 屏压到 ~4 屏。
 - **删除** GameInfo（stats 与 Hero 信息重复；文案移至 `/about` 页）。
 - **删除** 首页 FAQ（移至独立 `/faq` 页，FAQPage JSON-LD 随之迁移）。
@@ -636,10 +643,19 @@ export const defaultLocale: Locale = 'en';
 - **强化** Hero：H1 升至 `text-7xl font-black`，加渐变描边；占满 80vh 建立视觉锚点。
 - **新增** QuickStart section：4 个图标卡片，对标成功游戏 wiki 的"快速入口"模式。
 
+**v2.36+ 电影感改版（当前）**：
+- Hero 从纯 CSS 水印改为官方预告片剧照 + Cormorant Garamond 标题 + 电影颗粒/暗角/慢推镜。
+- QuickStart 从 4 个图标卡改为 4 张有序剧照卡（图片按 `home.start.cards[].image` 配置）。
+- 新增 StatsStrip（`home.stats`）与 QuickAnswers + Method（`home.quickAnswers` / `home.method`）：
+  前者补足同行首页的「数字速览」，后者补足「先回答、再给来源」与校验透明度。
+- 移除首页 Explore 区块（`ExploreModules` 组件保留给其他页面/分支使用），RecentUpdates 改为编辑式索引。
+- 新增深色影院带 VideoSection 与 ClosingCta；全幅布局通过 `LocaleLayout.fullBleed` 实现。
+- 首页 `og:image` 使用 1200×630 电影剧照（`src/assets/cinematic/og-home.jpg`）。
+- `/about` 正文从模板默认的「bosses/items/codes/Discord」改为实际内容边界、校验方法与联系路径。
+
 **关键决策**：
-- 所有文案来自 JSON，组件不含游戏特定字符串。
+- 所有文案来自 JSON，组件不含游戏特定字符串；剧照通过 `src/config/cinematic.ts` 的键引用。
 - 模块级标题含主题名（SEO），子项不强制。
-- `home.explore.modules` 数组建议 4 项（核心高频入口），超出可放列表页。
 
 ### 7.2 列表页（ListPage）
 

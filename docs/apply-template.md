@@ -218,12 +218,21 @@ echo '{}' > src/locales/ru.json
 首页的数据结构详见 [PRD §6.5](./PRD.md#65-首页-home-命名空间)。关键字段：
 
 - `home.meta.title` / `description`：SEO 元数据（title 50-60 字符，description 150-160 字符）
-- `home.hero`：Hero 区域（`badge` / `title` / `description` / `ctaPrimary` / `ctaSecondary`）
-- `home.start.cards[]`：QuickStart 卡片（4 张，每张含 `icon` + `href`）
-- `home.explore.modules[]`：内容模块（当前 demo 为 6 个，每个含 `displayType` + `highlights[]`）
-- `home.closingCta`：底部号召文案
+- `home.hero`：电影感 Hero（`eyebrow` / `title` / `titleLead` / `titleTail` / `metaLabel` /
+  `description` / CTA 文案与 `*Href` / `videoId` / `imageAlt` / `imageCredit` / `chapters[]`）
+- `home.trailer`：影院带说明（`badge` / `title` / `description` / `ctaLabel` / `ctaHref` / `credit`）
+- `home.start.cards[]`：QuickStart 卡片（4 张，每张含 `number` / `title` / `description` /
+  `icon` / `href`；可选 `image` 指向 `src/config/cinematic.ts` 的剧照键，缺省回退图标卡）
+- `home.stats`：1.0 数据带（`badge` / `title` / `description` / `items[]`（`value` / `label` /
+  `detail`）/ `note` / `linkLabel` / `href`）
+- `home.popular.quickLinks[]`：右栏 1.0 索引链接（`label` + `href`）
+- `home.quickAnswers`：快捷问答（`badge` / `title` / `description` / `items[]`，每条含
+  `question` / `answer` / `href` / `linkLabel`；`ctaLabel` / `ctaHref` 指 /faq）
+- `home.method`：校验方法卡（`badge` / `title` / `description` / `items[]` / `href` / `linkLabel`）
+- `home.explore.modules[]`：内容模块（组件保留；当前首页不渲染该 section）
+- `home.closingCta`：底部号召文案（`badge` / `title` / `description` / 主次 CTA 与 `*Href` / 剧照署名）
 
-**SEO 要求**：`home.explore.modules[].name` 必须包含游戏名。
+**SEO 要求**：`home.explore.modules[].name` 必须包含游戏名（若启用该 section）。
 
 ### 多语言翻译
 

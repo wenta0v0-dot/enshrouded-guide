@@ -1,27 +1,72 @@
 ---
 /**
- * VideoSection — embeds a YouTube trailer/gameplay video right below the Hero.
- *
- * Per design: the video module must sit immediately after the Hero region.
- * The video ID comes from the locale JSON `home.hero.videoId`.
- *
- * Player core lives in ~/components/video/LazyYouTube.astro (shared with the
- * MDX inline <Video> component).
+ * VideoSection — the official trailer, staged as a dark cinema band directly
+ * below the hero. The video itself stays the shared lazy YouTube player (zero
+ * JS until click); this component only supplies the matte, typography and the
+ * attribution that the trailer stills require.
  */
+import { Icon } from 'astro-icon/components';
 import LazyYouTube from '~/components/video/LazyYouTube.astro';
+import SectionHeading from './SectionHeading.astro';
 
 interface Props {
   /** YouTube video ID (from home.hero.videoId). */
   videoId?: string;
-  /** Title for accessibility + the play button overlay. */
+  /** Section heading (display serif). */
   title?: string;
+  badge?: string;
+  description?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  credit?: string;
 }
-const { videoId, title = 'Watch trailer' } = Astro.props;
+const {
+  videoId,
+  title = 'Trailer',
+  badge,
+  description,
+  ctaLabel,
+  ctaHref,
+  credit,
+} = Astro.props;
 ---
-{videoId && (
-  <section class="border-b border-border">
-    <div class="mx-auto max-w-4xl px-4 py-8">
-      <LazyYouTube videoId={videoId} title={title} />
-    </div>
-  </section>
-)}
+{
+  videoId && (
+    <section
+      id="trailer"
+      class="relative scroll-mt-14 overflow-hidden border-y border-white/10 bg-cinema-bg text-white"
+    >
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute -top-48 left-1/2 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-nav-light/10 blur-[120px]"
+      />
+      <div class="relative mx-auto max-w-5xl px-4 py-14 md:py-20">
+        <SectionHeading inverse eyebrow={badge} title={title} description={description}>
+          {ctaLabel && ctaHref && (
+            <a
+              href={ctaHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/70 transition hover:border-white/50 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              {ctaLabel}
+              <Icon
+                name="lucide:external-link"
+                class="h-3.5 w-3.5 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </a>
+          )}
+        </SectionHeading>
+
+        <div class="mt-8 md:mt-10">
+          <div class="rounded-sm border border-white/15 bg-black/70 p-1.5 md:p-2">
+            <LazyYouTube videoId={videoId} title={title} />
+          </div>
+          {credit && (
+            <p class="mt-4 text-[10px] uppercase tracking-[0.2em] text-white/50">{credit}</p>
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}

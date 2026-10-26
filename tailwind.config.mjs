@@ -52,6 +52,13 @@ export default {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        // Theme-independent "screening room" palette for the homepage hero,
+        // trailer band and closing frame (tokens live in globals.css).
+        cinema: {
+          bg: 'hsl(var(--cinema-bg) / <alpha-value>)',
+          paper: 'hsl(var(--cinema-paper) / <alpha-value>)',
+          ink: 'hsl(var(--cinema-ink) / <alpha-value>)',
+        },
       },
       borderRadius: {
         lg: 'var(--radius, 0.5rem)',
@@ -60,6 +67,14 @@ export default {
       },
       fontFamily: {
         sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+        display: [
+          '"Cormorant Garamond"',
+          'ui-serif',
+          '"Iowan Old Style"',
+          '"Palatino Linotype"',
+          'Georgia',
+          'serif',
+        ],
       },
       typography: ({ theme }) => ({
         DEFAULT: {

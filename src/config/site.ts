@@ -27,6 +27,7 @@ export interface SiteConfig {
   social: {
     /** Official game website URL (the game itself, not the wiki). */
     official: string;
+    github?: string;
     discord?: string;
     youtube?: string;
     twitter?: string;
@@ -73,6 +74,7 @@ export const site: SiteConfig = {
   contactEmail: '',
   social: {
     official: 'https://store.steampowered.com/app/1203620/',
+    github: 'https://github.com/wenta0v0-dot/enshrouded-guide',
   },
   game: {
     name: 'Enshrouded',

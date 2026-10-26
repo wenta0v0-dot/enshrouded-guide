@@ -6,28 +6,34 @@
  * touching this component.
  *
  * Sections (top to bottom):
- *   1. Hero          — title, description, CTAs (strong visual anchor)
- *   2. QuickStart    — 4 large icon cards (Codes / Bosses / Guides / Tier)
- *   3. Recent Updates + Trending links (two columns)
- *   4. Explore       — 4 content modules with displayTypes
- *   5. ClosingCta      — bottom call-to-action
+ *   1. CinematicHero — full-bleed trailer still, film-poster title, chapter row
+ *   2. VideoSection  — official trailer on a dark cinema band
+ *   3. StatsStrip    — "1.0 at a glance" verified numbers band
+ *   4. QuickStart    — four ordered still cards (Beginner / Builds / Sparkworks / Cinder's Cradle)
+ *   5. Recent Updates + 1.0 index (editorial index + sidebar)
+ *   6. QuickAnswers  — sourced quick answers + how-this-wiki-is-dated card
+ *   7. ClosingCta    — moonlit still + journey CTA
  *
- * v0.2 refactor: trimmed from 8 sections to 5. Removed GameInfo (info
- * duplicated Hero stats), FAQ (moved to /faq), standalone TrendingNow
- * (merged into Recent Updates). Explore modules trimmed 8→4. Page length
- * compressed from ~7 screens to ~4.
+ * The page is full-bleed (LocaleLayout `fullBleed`), so sections own their
+ * max-width. The dark bands are intentionally theme-independent: they are the
+ * page's "screening room", while the reading sections follow the site theme.
  */
+import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import LocaleLayout from '~/components/layout/LocaleLayout.astro';
+import CinematicHero from '~/components/home/CinematicHero.astro';
 import VideoSection from '~/components/home/VideoSection.astro';
+import StatsStrip from '~/components/home/StatsStrip.astro';
 import QuickStart from '~/components/home/QuickStart.astro';
-import ExploreModules from '~/components/home/ExploreModules.astro';
+import QuickAnswers from '~/components/home/QuickAnswers.astro';
+import SectionHeading from '~/components/home/SectionHeading.astro';
 import { site } from '~/config/site';
 import { NAVIGATION_CONFIG } from '~/config/navigation';
+import { cinematicArt } from '~/config/cinematic';
 import { type Locale } from '~/i18n/routing';
 import { getUi, type HomeUi } from '~/i18n/ui';
 import { getRecentEntries, parseEntryId } from '~/lib/content';
-import { localizePath, listPath, detailPath } from '~/lib/url';
+import { absoluteLocalized, localizePath, listPath, detailPath } from '~/lib/url';
 
 interface Props {
   locale: Locale;
@@ -45,6 +51,7 @@ const home = ui.home;
 const shared = ui.shared;
 
 const recent = await getRecentEntries(locale, 6);
+const guidesPath = listPath(NAVIGATION_CONFIG[0]?.key ?? 'guides', locale);
 
 // Per-field fallbacks: a locale JSON whose meta object exists but lacks
 // title/description must not pass undefined into BaseLayout (title.includes
@@ -59,10 +66,13 @@ const meta = {
 // missing from en.json itself is a build-time typecheck failure, not a
 // blanked section at runtime.
 const hero: HomeUi['hero'] = home.hero;
+const trailer: HomeUi['trailer'] = home.trailer;
+const stats: HomeUi['stats'] = home.stats;
 const updates: HomeUi['updates'] = home.updates;
 const start: HomeUi['start'] = home.start;
 const popular: HomeUi['popular'] = home.popular;
-const explore: HomeUi['explore'] = home.explore;
+const quickAnswers: HomeUi['quickAnswers'] = home.quickAnswers;
+const method: HomeUi['method'] = home.method;
 const closingCta: HomeUi['closingCta'] = home.closingCta;
 
 // QuickLink may be a string or { label, href } — normalize for the sidebar list.
@@ -74,6 +84,18 @@ function trendingHref(link: QuickLink): string | null {
 function trendingLabel(link: QuickLink): string {
   return typeof link === 'string' ? link : link.label;
 }
+
+// Dated pages are the site's promise — show the date on every recent row.
+const dateFormatter = new Intl.DateTimeFormat(locale === 'en' ? 'en-US' : locale, {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+});
+const formatDate = (date: Date) => dateFormatter.format(date);
+const isoDate = (date: Date) => date.toISOString().slice(0, 10);
+
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+const resolveHref = (href: string) => (isExternal(href) ? href : localizePath(href, locale));
 ---
 
 <LocaleLayout
@@ -82,127 +104,149 @@ function trendingLabel(link: QuickLink): string {
   description={meta.description}
   alternates={alternates}
   jsonLd={jsonLd}
+  fullBleed
+  image={absoluteLocalized(cinematicArt.og.src)}
+  ogImageWidth={1200}
+  ogImageHeight={630}
 >
   {/* ─────────────────────────────── Hero ─────────────────────────────── */}
-  <section class="relative flex min-h-[52vh] items-center overflow-hidden border-b border-border md:min-h-[68vh]">
-    {/* Subtle theme-color gradient backdrop — gives the hero a visual anchor
-        without requiring an image asset. Sits behind the watermark. */}
-    <div
-      aria-hidden="true"
-      class="pointer-events-none absolute inset-0 bg-gradient-to-br from-nav/8 via-transparent to-transparent"
-    />
-    {/* Faint game-name watermark — pure CSS, no image asset required. */}
-    <span
-      aria-hidden="true"
-      class="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 select-none text-center text-[18vw] font-black leading-none text-foreground/[0.03] md:text-[14vw]"
-    >
-      {site.game.name}
-    </span>
-
-    <div class="relative mx-auto w-full max-w-7xl px-4 py-16 md:py-24">
-      <p class="text-sm font-semibold uppercase tracking-wider text-foreground">{hero.badge}</p>
-      <h1
-        class="mt-3 max-w-3xl bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-4xl font-black tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl"
-      >
-        {hero.title}
-      </h1>
-      <p class="mt-5 max-w-xl text-base text-muted-foreground md:text-lg">{hero.description}</p>
-      <div class="mt-8 flex flex-wrap gap-3">
-        {
-          hero.ctaPrimary && (
-            <a
-              href={site.social.official}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-primary"
-            >
-              <Icon name="lucide:play" class="mr-2 h-4 w-4" />
-              {hero.ctaPrimary}
-            </a>
-          )
-        }
-        {
-          hero.ctaSecondary && (
-            <a href={listPath(NAVIGATION_CONFIG[1]?.key ?? 'guides', locale)} class="btn-outline">
-              {hero.ctaSecondary}
-            </a>
-          )
-        }
-      </div>
-    </div>
-  </section>
+  <CinematicHero
+    locale={locale}
+    title={hero.title}
+    titleLead={hero.titleLead}
+    titleTail={hero.titleTail}
+    eyebrow={hero.eyebrow}
+    metaLabel={hero.metaLabel}
+    description={hero.description}
+    primaryLabel={hero.ctaPrimary}
+    primaryHref={hero.ctaPrimaryHref}
+    secondaryLabel={hero.ctaSecondary}
+    secondaryHref={hero.ctaSecondaryHref}
+    trailerLabel={hero.ctaTrailer}
+    hasTrailer={Boolean(hero.videoId)}
+    image={cinematicArt.hero}
+    imageAlt={hero.imageAlt}
+    imageCredit={hero.imageCredit}
+    imageCreditHref={hero.imageCreditHref}
+    chapters={hero.chapters}
+  />
 
   {/* Trailer — only renders when a videoId is configured. */}
   {hero.videoId && (
-    <VideoSection videoId={hero.videoId} title={`${site.game.name} ${shared.gameTrailer}`} />
+    <VideoSection
+      videoId={hero.videoId}
+      badge={trailer.badge}
+      title={trailer.title}
+      description={trailer.description}
+      ctaLabel={trailer.ctaLabel}
+      ctaHref={trailer.ctaHref}
+      credit={trailer.credit}
+    />
   )}
 
-  {/* ───────────────────────────── Quick Start ────────────────────────── */}
-  <QuickStart
+  {/* ──────────────────────── 1.0 at a glance ─────────────────────────── */}
+  <StatsStrip
     locale={locale}
-    badge={start.badge}
-    title={start.title}
-    cards={start.cards}
+    badge={stats.badge}
+    title={stats.title}
+    description={stats.description}
+    items={stats.items}
+    note={stats.note}
+    facts={`${site.game.developer} · ${site.game.platform} · ${site.game.genre}`}
+    linkLabel={stats.linkLabel}
+    href={stats.href}
   />
 
-  {/* ───────────────────── Recent Updates + Trending ───────────────────── */}
+  {/* ───────────────────────────── Quick Start ────────────────────────── */}
+  <QuickStart locale={locale} badge={start.badge} title={start.title} cards={start.cards} />
+
+  {/* ───────────────────── Recent Updates + 1.0 index ───────────────────── */}
   <section class="section border-t border-border">
-    <div class="grid gap-8 lg:grid-cols-3">
-      {/* Recent updates — 2/3 width on desktop. */}
-      <div class="lg:col-span-2">
-        <div class="flex items-baseline justify-between">
-          <h2 class="text-2xl font-bold">{updates.title}</h2>
-          <a href={listPath(NAVIGATION_CONFIG[1]?.key ?? 'guides', locale)} class="text-sm text-foreground hover:text-nav hover:underline"
-            >{shared.browseAll}</a
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+      {/* Recent updates — editorial index, 2/3 width on desktop. */}
+      <div class="min-w-0">
+        <SectionHeading eyebrow={updates.badge} title={updates.title}>
+          <a
+            href={guidesPath}
+            class="group inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground transition hover:text-nav"
           >
-        </div>
-        <div class="mt-4 grid gap-4 sm:grid-cols-2">
-          {
-            recent.length === 0 ? (
-              <p class="text-sm text-muted-foreground">{shared.noArticles}</p>
-            ) : (
-              recent.map((entry) => {
-                const parsed = parseEntryId(entry.id);
-                if (!parsed) return null;
-                return (
-                  <a href={detailPath(parsed.category, parsed.slug, locale)} class="card p-4">
-                    <p class="text-xs uppercase tracking-wider text-muted-foreground">
-                      {parsed.category}
-                    </p>
-                    <h3 class="mt-1 font-semibold leading-snug">{entry.data.title}</h3>
-                    <p class="mt-1 line-clamp-2 text-sm text-muted-foreground">
+            {shared.browseAll}
+            <Icon
+              name="lucide:arrow-right"
+              class="h-3.5 w-3.5 transition group-hover:translate-x-0.5"
+            />
+          </a>
+        </SectionHeading>
+
+        {recent.length === 0 ? (
+          <p class="mt-8 text-sm text-muted-foreground">{shared.noArticles}</p>
+        ) : (
+          <div class="grid gap-x-10 sm:grid-cols-2">
+            {recent.map((entry) => {
+              const parsed = parseEntryId(entry.id);
+              if (!parsed) return null;
+              const modified = entry.data.lastModified ?? entry.data.date;
+              return (
+                <a
+                  href={detailPath(parsed.category, parsed.slug, locale)}
+                  class="group flex gap-4 border-b border-border py-5"
+                >
+                  <div class="min-w-0 flex-1">
+                    <div class="flex flex-wrap items-center gap-x-2 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                      <span class="text-nav">{parsed.category}</span>
+                      <span aria-hidden="true">·</span>
+                      <time datetime={isoDate(modified)}>{formatDate(modified)}</time>
+                    </div>
+                    <h3 class="mt-1.5 font-display text-xl font-medium leading-snug transition group-hover:text-nav md:text-[1.35rem]">
+                      {entry.data.title}
+                    </h3>
+                    <p class="mt-1 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
                       {entry.data.description}
                     </p>
-                  </a>
-                );
-              })
-            )
-          }
-        </div>
+                  </div>
+                  <Icon
+                    name="lucide:arrow-up-right"
+                    class="mt-1 h-4 w-4 shrink-0 text-muted-foreground/40 transition group-hover:text-nav"
+                  />
+                </a>
+              );
+            })}
+          </div>
+        )}
       </div>
 
-      {/* Trending — 1/3 width sidebar list. */}
+      {/* 1.0 index — 1/3 width sidebar. */}
       {trendingLinks.length > 0 && (
-        <aside>
-          <p class="text-sm font-semibold uppercase tracking-wider text-foreground">{popular.badge}</p>
-          <h2 class="mt-1 text-2xl font-bold">{popular.title}</h2>
-          <ul class="mt-4 space-y-2">
-            {trendingLinks.map((link: QuickLink) => {
+        <aside class="hidden lg:block lg:border-l lg:border-border lg:pl-10">
+          <p class="cinema-eyebrow text-muted-foreground">{popular.badge}</p>
+          <h2 class="mt-2 font-display text-2xl font-medium tracking-tight md:text-3xl">
+            {popular.title}
+          </h2>
+          <ul class="mt-5">
+            {trendingLinks.map((link: QuickLink, index: number) => {
               const href = trendingHref(link);
               const label = trendingLabel(link);
               return (
-                <li>
+                <li class="border-t border-border">
                   {href ? (
                     <a
                       href={href}
-                      class="flex items-center gap-2 rounded-md border bg-card p-3 text-sm font-medium transition hover:border-nav/50"
+                      class="group flex items-center gap-3 py-3.5 text-sm font-medium text-foreground transition hover:text-nav"
                     >
-                      <Icon name="lucide:trending-up" class="h-4 w-4 shrink-0 text-nav" />
+                      <span class="font-display text-sm text-muted-foreground/50">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
                       <span class="leading-snug">{label}</span>
+                      <Icon
+                        name="lucide:arrow-up-right"
+                        class="ml-auto h-3.5 w-3.5 shrink-0 text-muted-foreground/40 transition group-hover:text-nav"
+                      />
                     </a>
                   ) : (
-                    <div class="flex items-center gap-2 rounded-md border bg-card p-3 text-sm font-medium">
-                      <Icon name="lucide:trending-up" class="h-4 w-4 shrink-0 text-nav" />
+                    <div class="flex items-center gap-3 py-3.5 text-sm font-medium">
+                      <span class="font-display text-sm text-muted-foreground/50">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
                       <span class="leading-snug">{label}</span>
                     </div>
                   )}
@@ -215,45 +259,73 @@ function trendingLabel(link: QuickLink): string {
     </div>
   </section>
 
-  {/* ──────────────────────────── Explore Modules ─────────────────────── */}
-  {
-    explore.modules?.length > 0 && (
-      <section class="section border-t border-border">
-        <h2 class="text-2xl font-bold">{explore.title}</h2>
-        <p class="mt-1 text-sm text-muted-foreground">{explore.description}</p>
-        <div class="mt-8">
-          <ExploreModules modules={explore.modules} locale={locale} />
-        </div>
-      </section>
-    )
-  }
+  {/* ───────────────────── Quick answers + method ─────────────────────── */}
+  <QuickAnswers
+    locale={locale}
+    badge={quickAnswers.badge}
+    title={quickAnswers.title}
+    description={quickAnswers.description}
+    ctaLabel={quickAnswers.ctaLabel}
+    ctaHref={quickAnswers.ctaHref}
+    items={quickAnswers.items}
+    method={method}
+  />
 
   {/* ─────────────────────────────── Final CTA ────────────────────────── */}
   {
     closingCta.title && (
-      <section class="section border-t border-border">
-        <div class="rounded-xl border bg-card p-8 text-center md:p-12">
-          <h2 class="text-2xl font-bold md:text-3xl">{closingCta.title}</h2>
-          <p class="mx-auto mt-2 max-w-xl text-muted-foreground">{closingCta.description}</p>
-          <div class="mt-6 flex justify-center gap-3">
-            <a
-              href={site.social.official}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-primary"
-            >
-              {closingCta.primary}
-            </a>
-            {closingCta.secondary && site.social.discord && (
+      <section class="relative isolate overflow-hidden border-t border-white/10 bg-cinema-bg text-white">
+        <Image
+          src={cinematicArt.closing}
+          alt=""
+          widths={[800, 1200, 1800, 2200]}
+          sizes="100vw"
+          quality={78}
+          loading="lazy"
+          class="absolute inset-0 -z-10 h-full w-full object-cover object-[68%_50%] opacity-70"
+        />
+        <div class="cinema-scrim-cta" aria-hidden="true"></div>
+        <div class="film-grain" aria-hidden="true"></div>
+        <div
+          class="relative mx-auto max-w-7xl px-4 py-24 md:py-32"
+        >
+          <div class="max-w-xl">
+            <p class="cinema-eyebrow text-nav-light">{closingCta.badge}</p>
+            <h2 class="mt-4 font-display text-4xl font-medium leading-[1.05] tracking-tight md:text-6xl">
+              {closingCta.title}
+            </h2>
+            <p class="mt-5 max-w-lg text-base leading-relaxed text-white/60">
+              {closingCta.description}
+            </p>
+            <div class="mt-8 flex flex-wrap items-center gap-3">
               <a
-                href={site.social.discord}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-outline"
+                href={resolveHref(closingCta.primaryHref)}
+                class="group inline-flex items-center gap-3 rounded-full bg-cinema-paper px-6 py-3 text-sm font-semibold text-cinema-ink transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                {closingCta.primary}
+                <Icon
+                  name="lucide:arrow-right"
+                  class="h-4 w-4 transition group-hover:translate-x-0.5"
+                />
+              </a>
+              <a
+                href={resolveHref(closingCta.secondaryHref)}
+                target={isExternal(closingCta.secondaryHref) ? '_blank' : undefined}
+                rel={isExternal(closingCta.secondaryHref) ? 'noopener noreferrer' : undefined}
+                class="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-medium text-white/90 transition hover:border-white/60 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 {closingCta.secondary}
               </a>
-            )}
+            </div>
+            <a
+              href={closingCta.imageCreditHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-12 inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-white/45 transition hover:text-white/70"
+            >
+              <Icon name="lucide:film" class="h-3 w-3 shrink-0" />
+              {closingCta.imageCredit}
+            </a>
           </div>
         </div>
       </section>

@@ -1,0 +1,137 @@
+---
+/**
+ * QuickAnswers — the peer-wiki pattern that actually fits a four-guide site:
+ * a compact question grid (each answer links to the dated guide) beside a
+ * dark "how this wiki is dated" card. Pindrop and IGN both surface fast
+ * answers on the homepage; ours stays tied to a source instead of restating
+ * the article blindly.
+ */
+import { Icon } from 'astro-icon/components';
+import SectionHeading from './SectionHeading.astro';
+import { type Locale } from '~/i18n/routing';
+import { localizePath } from '~/lib/url';
+
+interface AnswerItem {
+  question: string;
+  answer: string;
+  href: string;
+  linkLabel: string;
+}
+
+interface MethodItem {
+  title: string;
+  text: string;
+}
+
+interface Method {
+  badge?: string;
+  title: string;
+  description?: string;
+  items: MethodItem[];
+  href: string;
+  linkLabel: string;
+}
+
+interface Props {
+  locale: Locale;
+  badge?: string;
+  title: string;
+  description?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  items: AnswerItem[];
+  method: Method;
+}
+const { locale, badge, title, description, ctaLabel, ctaHref, items, method } = Astro.props;
+const isExternal = (value: string) => /^https?:\/\//.test(value);
+const resolveHref = (value: string) => (isExternal(value) ? value : localizePath(value, locale));
+---
+<section class="section border-t border-border">
+  <div class="grid gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+    <div class="min-w-0">
+      <SectionHeading eyebrow={badge} title={title} description={description}>
+        {
+          ctaLabel && ctaHref && (
+            <a
+              href={resolveHref(ctaHref)}
+              class="group inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground transition hover:text-nav"
+            >
+              {ctaLabel}
+              <Icon
+                name="lucide:arrow-right"
+                class="h-3.5 w-3.5 transition group-hover:translate-x-0.5"
+              />
+            </a>
+          )
+        }
+      </SectionHeading>
+
+      <div class="grid gap-x-10 sm:grid-cols-2">
+        {
+          items.map((item) => (
+            <div class="border-b border-border py-5">
+              <h3 class="font-display text-xl font-medium leading-snug md:text-[1.35rem]">
+                {item.question}
+              </h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{item.answer}</p>
+              <a
+                href={resolveHref(item.href)}
+                class="group mt-3 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-nav transition hover:underline"
+              >
+                {item.linkLabel}
+                <Icon
+                  name="lucide:arrow-right"
+                  class="h-3.5 w-3.5 transition group-hover:translate-x-0.5"
+                />
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <aside class="min-w-0">
+      <div
+        class="relative isolate overflow-hidden rounded-sm border border-white/10 bg-cinema-bg p-6 text-white md:p-8"
+      >
+        <div
+          aria-hidden="true"
+          class="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-nav-light/10 blur-[80px]"
+        >
+        </div>
+        <div class="relative">
+          {method.badge && <p class="cinema-eyebrow text-nav-light">{method.badge}</p>}
+          <h2 class="mt-3 font-display text-2xl font-medium leading-tight md:text-3xl">
+            {method.title}
+          </h2>
+          {method.description && (
+            <p class="mt-3 text-sm leading-relaxed text-white/60">{method.description}</p>
+          )}
+          <ol class="mt-6">
+            {method.items.map((item, index) => (
+              <li class="flex gap-3 border-t border-white/10 py-4">
+                <span class="mt-0.5 font-display text-sm leading-none text-white/35">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <div>
+                  <h3 class="text-sm font-semibold text-white/90">{item.title}</h3>
+                  <p class="mt-1 text-xs leading-relaxed text-white/55">{item.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <a
+            href={resolveHref(method.href)}
+            class="group mt-4 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/60 transition hover:text-white"
+          >
+            {method.linkLabel}
+            <Icon
+              name="lucide:arrow-right"
+              class="h-3.5 w-3.5 transition group-hover:translate-x-0.5"
+            />
+          </a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>

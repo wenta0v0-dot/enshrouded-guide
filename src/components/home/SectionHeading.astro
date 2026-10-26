@@ -1,0 +1,55 @@
+---
+/**
+ * SectionHeading — the editorial header shared by the homepage sections.
+ *
+ * A wide-tracked eyebrow, a serif display title, then a hairline with a short
+ * ember accent. The optional slot sits at the right edge (e.g. "Browse all").
+ * `inverse` switches to the cinema palette for dark bands.
+ */
+interface Props {
+  title: string;
+  eyebrow?: string;
+  description?: string;
+  inverse?: boolean;
+}
+const { title, eyebrow, description, inverse = false } = Astro.props;
+---
+<div>
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <div class="min-w-0">
+      {
+        eyebrow && (
+          <p class:list={['cinema-eyebrow', inverse ? 'text-white/55' : 'text-muted-foreground']}>
+            {eyebrow}
+          </p>
+        )
+      }
+      <h2
+        class:list={[
+          'mt-2 font-display text-3xl font-medium leading-tight tracking-tight md:text-[2.6rem]',
+          inverse ? 'text-white' : 'text-foreground',
+        ]}
+      >
+        {title}
+      </h2>
+      {
+        description && (
+          <p
+            class:list={[
+              'mt-2 max-w-2xl text-sm leading-relaxed',
+              inverse ? 'text-white/55' : 'text-muted-foreground',
+            ]}
+          >
+            {description}
+          </p>
+        )
+      }
+    </div>
+    <div class="shrink-0">
+      <slot />
+    </div>
+  </div>
+  <div class:list={['relative mt-5 h-px w-full', inverse ? 'bg-white/15' : 'bg-border']}>
+    <span class="absolute left-0 top-1/2 h-[2px] w-16 -translate-y-1/2 bg-nav-light"></span>
+  </div>
+</div>

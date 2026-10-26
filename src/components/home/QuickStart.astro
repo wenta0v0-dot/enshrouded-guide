@@ -1,17 +1,20 @@
 ---
 /**
- * QuickStart — prominent icon-card grid of the 4 things a new player needs.
+ * QuickStart — the four-step on-ramp, staged as cinematic still cards.
  *
- * Renders `home.start.cards` as large, clickable tiles (2×2 on desktop,
- * single column on mobile). Each card carries an icon, title, one-line
- * description, and a theme-colored arrow — modeled on the "quick actions"
- * pattern used by successful game-wiki homepages.
+ * Each card pairs locale copy (`home.start.cards`) with a trailer still from
+ * `src/config/cinematic.ts`. The numbering is meaningful here: it is the
+ * recommended order for a new 1.0 player (route → builds → system → endgame),
+ * not decoration.
  *
- * Placed immediately after the Hero so first-time visitors see their
- * next step without scrolling past marketing copy.
+ * Unknown/missing image keys fall back to the previous icon treatment, so a
+ * fork that hasn't replaced the stills still gets a working section.
  */
+import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
+import SectionHeading from './SectionHeading.astro';
 import { type Locale } from '~/i18n/routing';
+import { getCinematicArt } from '~/config/cinematic';
 import { localizePath } from '~/lib/url';
 import { getUi } from '~/i18n/ui';
 
@@ -21,6 +24,8 @@ interface StartCard {
   description: string;
   icon: string;
   href: string;
+  /** Key into src/config/cinematic.ts (optional: falls back to the icon tile). */
+  image?: string;
 }
 
 interface Props {
@@ -34,34 +39,63 @@ const sharedStrings = getUi(locale).shared;
 const open = sharedStrings.open ?? 'Open';
 ---
 {cards.length > 0 && (
-  <section class="section border-t border-border">
-    <p class="text-sm font-semibold uppercase tracking-wider text-foreground">{badge}</p>
-    <h2 class="mt-1 text-2xl font-bold tracking-tight md:text-3xl">{title}</h2>
-    <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 md:mt-8">
-      {cards.map((card: StartCard) => (
-        <a
-          href={localizePath(card.href, locale)}
-          class="card group flex flex-col p-5"
-        >
-          <div class="flex items-center justify-between">
-            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-nav/10 text-nav">
-              <Icon name={card.icon} class="h-6 w-6" />
-            </span>
-            <span class="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-              {card.number}
-            </span>
-          </div>
-          <h3 class="mt-4 font-semibold leading-snug">{card.title}</h3>
-          <p class="mt-1 line-clamp-2 text-sm text-muted-foreground">{card.description}</p>
-          <span class="mt-3 inline-flex items-center gap-1 text-xs font-medium text-foreground hover:text-nav">
-            <span class="border-b border-transparent transition group-hover:border-nav">{open}</span>
-            <Icon
-              name="lucide:arrow-right"
-              class="h-3 w-3 transition group-hover:translate-x-0.5"
-            />
-          </span>
-        </a>
-      ))}
+  <section class="section">
+    <SectionHeading eyebrow={badge} title={title} />
+    <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {cards.map((card: StartCard) => {
+        const art = getCinematicArt(card.image);
+        return (
+          <a
+            href={localizePath(card.href, locale)}
+            class="group relative isolate block overflow-hidden rounded-sm border border-border bg-card transition hover:border-nav/60 hover:shadow-lg"
+          >
+            <div class="relative aspect-[16/10] overflow-hidden bg-muted">
+              {art ? (
+                <Image
+                  src={art}
+                  alt=""
+                  widths={[480, 800, 1200]}
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  quality={80}
+                  loading="lazy"
+                  class="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.04]"
+                />
+              ) : (
+                <div class="flex h-full w-full items-end bg-gradient-to-br from-muted to-card p-5">
+                  <Icon name={card.icon} class="h-10 w-10 text-nav" />
+                </div>
+              )}
+
+              <div
+                aria-hidden="true"
+                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/5"
+              >
+              </div>
+
+              <div class="absolute inset-x-0 top-0 flex items-center justify-between p-4">
+                <span class="cinema-eyebrow text-white/60">
+                  {String(card.number).padStart(2, '0')}
+                </span>
+                <Icon name={card.icon} class="h-4 w-4 text-white/50" />
+              </div>
+
+              <div class="absolute inset-x-0 bottom-0 p-5 text-white">
+                <h3 class="font-display text-2xl font-medium leading-tight md:text-[1.65rem]">
+                  {card.title}
+                </h3>
+                <p class="mt-1.5 text-sm leading-snug text-white/65">{card.description}</p>
+                <span class="mt-4 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/80">
+                  {open}
+                  <Icon
+                    name="lucide:arrow-right"
+                    class="h-3.5 w-3.5 transition group-hover:translate-x-0.5"
+                  />
+                </span>
+              </div>
+            </div>
+          </a>
+        );
+      })}
     </div>
   </section>
 )}

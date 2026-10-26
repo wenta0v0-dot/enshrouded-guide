@@ -18,31 +18,46 @@ const year = new Date().getFullYear();
   page === 'about' && (
     <>
       <p>
-        {site.name} is a fan-made community wiki dedicated to {game}, a {site.game.genre} on{' '}
-        {site.game.platform} developed by {site.game.developer}. Our mission is to provide accurate,
-        up-to-date guides, tips, and reference material to help players get the most out of the
-        game.
+        {site.name} is an unofficial, player-made guide for {game}, a {site.game.genre} on{' '}
+        {site.game.platform} developed by {site.game.developer}. It is built around the 1.0
+        release and focuses on the pages the large community wikis had not written when 1.0
+        launched.
       </p>
       <h2>What We Cover</h2>
       <ul>
-        <li>Boss strategies and attack patterns</li>
-        <li>Item locations, stats, and crafting recipes</li>
-        <li>Active redeemable codes (updated daily)</li>
-        <li>Tier lists and build recommendations</li>
-        <li>Progression guides for new and returning players</li>
+        <li>
+          <strong>Cinder's Cradle</strong> — the final region, its entrance requirements and the
+          preparation checklist
+        </li>
+        <li>
+          <strong>Sparkworks</strong> — the 1.0 build-logic system, its inputs and outputs, and how
+          to start building
+        </li>
+        <li>
+          <strong>1.0 builds</strong> — the archetypes, the nine new spells and what the patch
+          changed
+        </li>
+        <li>
+          <strong>The post-1.0 beginner route</strong> — the order to progress in after Early Access
+        </li>
       </ul>
-      <h2>Community-Driven</h2>
+      <h2>How We Verify</h2>
       <p>
-        This wiki is maintained by volunteers. If you spot an error or have content to contribute,
-        join our Discord and let us know. All content is freely accessible — no account required.
+        Every guide carries the date it was last checked. Claims start from the official 1.0
+        changelog and launch-week coverage; community mechanics guides are used with a caveat and
+        flagged until we can check them in-game. Where a mechanic is still unconfirmed, the page
+        says so instead of filling the gap.
+      </p>
+      <h2>Editorial Independence</h2>
+      <p>
+        {site.name} is not affiliated with {site.game.developer} or any game publisher. Game names
+        and trademarks belong to their respective owners. All content is freely accessible — no
+        account required.
       </p>
       <h2>Contact</h2>
       <p>
-        Reach us via our{' '}
-        <a href={site.social.discord} target="_blank" rel="noopener noreferrer">
-          Discord server
-        </a>{' '}
-        or{' '}
+        Corrections and source material are welcome through the{' '}
+        <a href={`${BASE_PREFIX}/contact/`}>contact page</a>. For official game news, use{' '}
         <a href={site.social.official} target="_blank" rel="noopener noreferrer">
           the game's official channels
         </a>
@@ -190,15 +205,24 @@ const year = new Date().getFullYear();
       {/* h2, not h1 — LegalPage already renders the page H1 (single-H1 rule). */}
       <h2>Contact {site.name}</h2>
       <p>
-        {site.name} is a fan-made wiki. Reach us or contribute through any of the channels below.
+        {site.name} is an unofficial, player-made guide. Corrections, source material and
+        suggestions are welcome through the channels below.
       </p>
-      <h2>Community</h2>
+      <h2>Channels</h2>
       <ul>
+        {site.social.github && (
+          <li>
+            <strong>GitHub:</strong>{' '}
+            <a href={site.social.github} target="_blank" rel="noopener noreferrer">
+              Report a correction or send a source
+            </a>
+          </li>
+        )}
         {site.social.official && (
           <li>
-            <strong>Official game website:</strong>{' '}
+            <strong>Official game page:</strong>{' '}
             <a href={site.social.official} target="_blank" rel="noopener noreferrer">
-              {site.social.official}
+              Enshrouded on Steam
             </a>
           </li>
         )}

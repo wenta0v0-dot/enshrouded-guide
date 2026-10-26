@@ -32,11 +32,12 @@
 
 1. **游戏内核验**:Sparkworks 机制细节、Cinder's Cradle 区域走图、per-archetype 构筑数值(需要玩家喂素材/截图)
 2. Search Console 提交(用户 Google 账号)
-3. favicon/hero 图:换 Enshrouded 主题素材(现为模板默认)
+3. ~~favicon/hero 图:换 Enshrouded 主题素材(现为模板默认)~~ → 首页 hero/卡片/结尾/OG 已换官方 1.0 预告片剧照(2026-10-24);favicon 仍为品牌生成,如需游戏图标可另换
 4. 每次 Enshrouded 补丁后 24h 内复更四页(站点的差异化就是「 dated + 快」)
 5. 三站矩阵:BreakEgg(更新事件流量)/ GK2(稳定大词)/ Enshrouded(1.0 深度窗口)——复更节奏各自独立
 
 ## 5. 内容更新记录
 
+- **2026-10-24**:首页电影感改版——Hero / 4 张有序 QuickStart 卡 / ClosingCta 换成官方 1.0 Launch Trailer(`gp7PZXkyxxY`)高分辨率剧照,新增深色影院带预告片区、Cormorant Garamond 标题、电影颗粒/暗角/慢推镜与 1200×630 电影感 OG 图;参考同行补入 1.0 数据带(6 个已核验数字)、带来源链接的快捷问答与「How this wiki is dated」校验卡;`/about` 从模板默认的 bosses/items/codes/Discord 文案改为实际内容边界、校验方法与联系路径。剧照来源与时间码见 `src/assets/cinematic/CREDITS.md`。首页内嵌视频从 EA Gameplay Overview 换为 1.0 Launch Trailer。
 - **2026-10-17 晚**:Sparkworks 页回填真实机制(逻辑系统:输入/输出/Switchbox/Sparkworks Tool/时钟与逻辑门,源自 Keen Games 官方公告 + enshrouded.world 社区指南,标注「UI 步骤待游戏内核验」);Cinder's Cradle 页回填走图事实(位置 beyond Veilwater Basin、Ancient Gate 入口在 Cromville 温泉与 Lake Luma 之间需 Flame 等级、双层结构、12 新 Shroud Roots、14 新敌型、主线终章、Flame Level 10,源自 The Nerd Stash/G2A/官方 changelog);首页与 Cinder's Cradle 页嵌入官方 Gameply Trailer(KF3tQ2Gnnvg,官方频道 @enshroudedgame);首页挂官方预告懒加载播放器。
 - 仍待游戏内核验:Cinder's Cradle 双层走图细节/12 个 Shroud Root 具体位置/敌方部署;Sparkworks 的 UI 步骤与最优机构设计;Flame 祭坛数字(changelog 自相矛盾处)。

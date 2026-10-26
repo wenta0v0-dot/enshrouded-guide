@@ -1,0 +1,80 @@
+---
+/**
+ * StatsStrip — "1.0 at a glance", a data band borrowed from the peer wikis
+ * that lead with verified numbers (wiki.gg article counts, Pindrop marker and
+ * database counters). Our version stays honest: six facts, one source note,
+ * and a link to the verification method.
+ *
+ * Typography does the work — no imagery — so it reads as an end-credit data
+ * sheet between the trailer and the route cards.
+ */
+import { Icon } from 'astro-icon/components';
+import SectionHeading from './SectionHeading.astro';
+import { type Locale } from '~/i18n/routing';
+import { localizePath } from '~/lib/url';
+
+interface StatItem {
+  value: string;
+  label: string;
+  detail: string;
+}
+
+interface Props {
+  locale: Locale;
+  badge?: string;
+  title: string;
+  description?: string;
+  items: StatItem[];
+  note?: string;
+  /** Small game-facts credit line (developer · platform · genre). */
+  facts?: string;
+  linkLabel?: string;
+  href?: string;
+}
+const { locale, badge, title, description, items, note, facts, linkLabel, href } = Astro.props;
+const isExternal = (value: string) => /^https?:\/\//.test(value);
+const resolveHref = (value: string) => (isExternal(value) ? value : localizePath(value, locale));
+---
+<section class="section border-t border-border">
+  <SectionHeading eyebrow={badge} title={title} description={description}>
+    {
+      linkLabel && href && (
+        <a
+          href={resolveHref(href)}
+          class="group inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground transition hover:text-nav"
+        >
+          {linkLabel}
+          <Icon
+            name="lucide:arrow-right"
+            class="h-3.5 w-3.5 transition group-hover:translate-x-0.5"
+          />
+        </a>
+      )
+    }
+  </SectionHeading>
+
+  <dl
+    class="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-3 lg:grid-cols-6"
+  >
+    {
+      items.map((item) => (
+        <div class="group bg-background p-5 transition hover:bg-muted/40 md:p-6">
+          <dt class="cinema-eyebrow text-muted-foreground">{item.label}</dt>
+          <dd class="mt-2">
+            <span class="block font-display text-4xl font-medium leading-none tracking-tight md:text-5xl">
+              {item.value}
+            </span>
+            <span class="mt-3 block text-xs leading-relaxed text-muted-foreground">
+              {item.detail}
+            </span>
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+
+  <div class="mt-4 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+    {note && <p class="max-w-3xl text-xs leading-relaxed text-muted-foreground">{note}</p>}
+    {facts && <p class="cinema-eyebrow shrink-0 text-muted-foreground/70">{facts}</p>}
+  </div>
+</section>

@@ -136,51 +136,112 @@
       "description": "An unofficial player-made guide for Enshrouded 1.0: Cinder's Cradle, Sparkworks, 1.0 builds and the post-1.0 beginner route — verified against the 1.0 patch notes and dated."
     },
     "updates": {
+      "badge": "Latest",
       "title": "Recent updates"
     },
     "popular": {
-      "badge": "Popular",
-      "title": "Most read",
-      "quickLinks": []
+      "badge": "Index",
+      "title": "The 1.0 essentials",
+      "quickLinks": [
+        {
+          "label": "Cinder’s Cradle — the final region",
+          "href": "/guides/cinders-cradle"
+        },
+        {
+          "label": "Sparkworks — the new 1.0 system",
+          "href": "/guides/sparkworks"
+        },
+        {
+          "label": "1.0 builds and the tier list",
+          "href": "/guides/tier-list"
+        },
+        {
+          "label": "Beginner route after 1.0",
+          "href": "/guides/beginner-guide"
+        }
+      ]
     },
     "closingCta": {
+      "badge": "Your next step",
       "title": "Start your Enshrouded journey",
       "description": "Bookmark this wiki and check back after every game update.",
-      "primary": "Browse all",
-      "secondary": "Join the community"
+      "primary": "Browse all guides",
+      "primaryHref": "/guides",
+      "secondary": "Official game site",
+      "secondaryHref": "https://store.steampowered.com/app/1203620/",
+      "imageCredit": "Still from the official 1.0 launch trailer · Keen Games",
+      "imageCreditHref": "https://www.youtube.com/watch?v=gp7PZXkyxxY"
     },
     "hero": {
-      "badge": "Enshrouded",
+      "eyebrow": "Embervale · 1.0 · October 15, 2026",
       "title": "Enshrouded 1.0 Wiki",
+      "titleLead": "Enshrouded",
+      "titleTail": "1.0 Wiki",
+      "metaLabel": "1.0 · October 15, 2026",
       "description": "Deep-dive guides for the 1.0 release — Cinder’s Cradle, Sparkworks, builds and the beginner route. The pages the official wiki hasn’t written yet, verified against the 1.0 patch notes.",
-      "ctaPrimary": "Start with 1.0",
+      "ctaPrimary": "Enter Cinder’s Cradle",
+      "ctaPrimaryHref": "/guides/cinders-cradle",
       "ctaSecondary": "All guides",
-      "videoId": "KF3tQ2Gnnvg"
+      "ctaSecondaryHref": "/guides",
+      "ctaTrailer": "Watch the trailer",
+      "videoId": "gp7PZXkyxxY",
+      "imageAlt": "A lone adventurer on a mountain ridge at sunset, seen from behind — a still from Enshrouded’s 1.0 launch trailer",
+      "imageCredit": "Still from the official 1.0 launch trailer · Keen Games",
+      "imageCreditHref": "https://www.youtube.com/watch?v=gp7PZXkyxxY",
+      "chapters": [
+        {
+          "label": "Cinder’s Cradle",
+          "href": "/guides/cinders-cradle"
+        },
+        {
+          "label": "Sparkworks",
+          "href": "/guides/sparkworks"
+        },
+        {
+          "label": "1.0 Builds",
+          "href": "/guides/tier-list"
+        },
+        {
+          "label": "Beginner Route",
+          "href": "/guides/beginner-guide"
+        }
+      ]
     },
     "start": {
-      "badge": "Quick start",
-      "title": "New here?",
+      "badge": "Start here",
+      "title": "Choose your route",
       "cards": [
         {
           "number": "1",
-          "title": "Cinder’s Cradle",
-          "description": "The 1.0 zone, covered properly",
-          "icon": "lucide:map",
-          "href": "/guides/cinders-cradle"
+          "title": "Beginner Route",
+          "description": "Your first hours after 1.0",
+          "icon": "lucide:book-open",
+          "href": "/guides/beginner-guide",
+          "image": "beginner"
         },
         {
           "number": "2",
           "title": "1.0 Builds",
           "description": "All archetypes, what 1.0 changed",
           "icon": "lucide:swords",
-          "href": "/guides/tier-list"
+          "href": "/guides/tier-list",
+          "image": "builds"
         },
         {
           "number": "3",
-          "title": "Beginner Route",
-          "description": "Your first hours after 1.0",
-          "icon": "lucide:book-open",
-          "href": "/guides/beginner-guide"
+          "title": "Sparkworks",
+          "description": "The new logic system, explained",
+          "icon": "lucide:circuit-board",
+          "href": "/guides/sparkworks",
+          "image": "sparkworks"
+        },
+        {
+          "number": "4",
+          "title": "Cinder’s Cradle",
+          "description": "The 1.0 zone, covered properly",
+          "icon": "lucide:map",
+          "href": "/guides/cinders-cradle",
+          "image": "cinders"
         }
       ]
     },
@@ -260,7 +321,8 @@
             }
           ]
         }
-      ]
+      ],
+      "badge": "The pages"
     },
     "faq": {
       "title": "Questions everyone asks",
@@ -283,6 +345,108 @@
           "answer": "No. It is an unofficial player-made guide, re-verified and dated after every game update."
         }
       ]
+    },
+    "trailer": {
+      "badge": "Official trailer",
+      "title": "Watch the 1.0 launch trailer",
+      "description": "The official launch trailer from Keen Games: Embervale after 1.0 — the new region, enemies and gear, and the road that leads to Cinder’s Cradle.",
+      "ctaLabel": "Watch on YouTube",
+      "ctaHref": "https://www.youtube.com/watch?v=gp7PZXkyxxY",
+      "credit": "Official 1.0 launch trailer · Keen Games · October 2026"
+    },
+    "stats": {
+      "badge": "1.0 at a glance",
+      "title": "The numbers behind the launch",
+      "description": "Six verified facts about Enshrouded 1.0 — the version this wiki is built around.",
+      "linkLabel": "How we verify",
+      "href": "/about",
+      "items": [
+        {
+          "value": "2026",
+          "label": "1.0 release",
+          "detail": "October 15 · Early Access ends"
+        },
+        {
+          "value": "50",
+          "label": "Level cap",
+          "detail": "Up from 40"
+        },
+        {
+          "value": "9",
+          "label": "New spells",
+          "detail": "Plus eternal upgrades"
+        },
+        {
+          "value": "12",
+          "label": "Shroud Roots",
+          "detail": "New · across two layers"
+        },
+        {
+          "value": "14",
+          "label": "Enemy types",
+          "detail": "New · in Cinder’s Cradle"
+        },
+        {
+          "value": "10",
+          "label": "Flame Level",
+          "detail": "Goal · the Ancient Gate checks it"
+        }
+      ],
+      "note": "Verified against the official 1.0 changelog and launch-week coverage. Deep-zone numbers stay dated as they are confirmed in-game."
+    },
+    "quickAnswers": {
+      "badge": "Quick answers",
+      "title": "The questions everyone asks first",
+      "description": "Short answers, each linked to the dated guide behind it.",
+      "ctaLabel": "All FAQs",
+      "ctaHref": "/faq",
+      "items": [
+        {
+          "question": "What level is Cinder’s Cradle for?",
+          "answer": "The final region is tuned for characters approaching the new level cap of 50; the Ancient Gate also checks your Flame level. The prep checklist is in the zone guide.",
+          "href": "/guides/cinders-cradle",
+          "linkLabel": "Cinder’s Cradle guide"
+        },
+        {
+          "question": "Is Sparkworks optional?",
+          "answer": "No. It sits in the 1.0 main loop, not beside it — treating it as a side system means grinding the old way at the new cap.",
+          "href": "/guides/sparkworks",
+          "linkLabel": "Sparkworks guide"
+        },
+        {
+          "question": "How many spells did 1.0 add?",
+          "answer": "Nine new spells, plus eternal upgrades. Staff and summoner lines have the most immediate uses for them.",
+          "href": "/guides/tier-list",
+          "linkLabel": "1.0 builds overview"
+        },
+        {
+          "question": "Do Early Access saves carry over?",
+          "answer": "Yes. 1.0 moved saves to a new format; back up before migrating. What changes is your endgame plan, not your progress.",
+          "href": "/guides/beginner-guide",
+          "linkLabel": "Beginner route"
+        }
+      ]
+    },
+    "method": {
+      "badge": "Method",
+      "title": "How this wiki is dated",
+      "description": "Every guide is checked against 1.0, dated, and honest about what is still unconfirmed.",
+      "items": [
+        {
+          "title": "Every guide carries a date",
+          "text": "If a claim is not verified for 1.0, the guide says so instead of smoothing it over."
+        },
+        {
+          "title": "Primary sources first",
+          "text": "Official changelog first, then launch-week coverage. Community mechanics guides are used with a caveat until checked in-game."
+        },
+        {
+          "title": "Gaps stay marked",
+          "text": "Deep-zone numbers and unconfirmed mechanics stay flagged until we can check them in-game."
+        }
+      ],
+      "href": "/about",
+      "linkLabel": "About this wiki"
     }
   },
   "footer": {
