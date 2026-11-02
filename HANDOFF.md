@@ -38,6 +38,7 @@
 
 ## 5. 内容更新记录
 
+- **2026-11-03**:补丁复更(源自官方 Steam 新闻 RSS,10-17 后三条)——新增 `guides/patch-notes`(补丁速报页,持续维护:Patch 1.0.1.0 11-02 / Hotfix 1.0.0.3 10-21 / Steam Deck Verified 10-23,gameVersion 1.0.1.0);四篇指南各加对应事实段并刷新 lastModified=tier-list(杖系平衡:Whirlwind Crescendo 耐力降/Wand Evasion 魔力降/Aerial Wand Attack 改 40 魔力/格挡取消动画 exploit 修复/Lupa 匕首 riposte kick)、cinders-cradle(boss 远程仇恨保持、护盾 Ancient Construct 盾冷却阶段、敌等级修正)、sparkworks(刷怪塔出对怪、Sparkworks 装置免疫攻击破坏、教程/工作台 UI)、beginner-guide(开局洞穴前食物、紫浆果显眼、存档迁移修复可重试)。官网确认为 enshrouded.com(1.0.1.0 主菜单加新闻链接)。官方频道无补丁视频。
 - **2026-10-24**:首页电影感改版——Hero / 4 张有序 QuickStart 卡 / ClosingCta 换成官方 1.0 Launch Trailer(`gp7PZXkyxxY`)高分辨率剧照,新增深色影院带预告片区、Cormorant Garamond 标题、电影颗粒/暗角/慢推镜与 1200×630 电影感 OG 图;参考同行补入 1.0 数据带(6 个已核验数字)、带来源链接的快捷问答与「How this wiki is dated」校验卡;`/about` 从模板默认的 bosses/items/codes/Discord 文案改为实际内容边界、校验方法与联系路径。剧照来源与时间码见 `src/assets/cinematic/CREDITS.md`。首页内嵌视频从 EA Gameplay Overview 换为 1.0 Launch Trailer。
 - **2026-10-17 晚**:Sparkworks 页回填真实机制(逻辑系统:输入/输出/Switchbox/Sparkworks Tool/时钟与逻辑门,源自 Keen Games 官方公告 + enshrouded.world 社区指南,标注「UI 步骤待游戏内核验」);Cinder's Cradle 页回填走图事实(位置 beyond Veilwater Basin、Ancient Gate 入口在 Cromville 温泉与 Lake Luma 之间需 Flame 等级、双层结构、12 新 Shroud Roots、14 新敌型、主线终章、Flame Level 10,源自 The Nerd Stash/G2A/官方 changelog);首页与 Cinder's Cradle 页嵌入官方 Gameply Trailer(KF3tQ2Gnnvg,官方频道 @enshroudedgame);首页挂官方预告懒加载播放器。
 - 仍待游戏内核验:Cinder's Cradle 双层走图细节/12 个 Shroud Root 具体位置/敌方部署;Sparkworks 的 UI 步骤与最优机构设计;Flame 祭坛数字(changelog 自相矛盾处)。

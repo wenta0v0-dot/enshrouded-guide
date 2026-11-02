@@ -1,0 +1,93 @@
+---
+title: 'Enshrouded Patch Notes — 1.0.1 (November 2026) & Post-1.0 Hotfixes'
+description: 'Patch 1.0.1.0 (November 2, 2026) and Hotfix 1.0.0.3 (October 21) condensed from the changelog: boss engagement, wand balance, Sparkworks fixes, save migration.'
+category: 'guides'
+date: 2026-11-03
+lastModified: 2026-11-03
+tags: ['1.0', '1.0.1', 'patch-notes', 'builds', 'cinders-cradle', 'sparkworks']
+summary: 'Enshrouded Patch 1.0.1.0 arrived on November 2, 2026: bosses stay engaged at range, wand attacks were rebalanced, Sparkworks spawners and props were fixed, and save migration got safer. This page condenses it and Hotfix 1.0.0.3 (October 21) from the official changelog, with what each change means for your route.'
+gameVersion: '1.0.1.0'
+faq:
+  - question: 'What is Enshrouded Patch 1.0.1?'
+    answer: 'The first major update after 1.0 (version 1.0.1.0, released November 2, 2026). It keeps bosses engaged in combat at range, rebalances wand attacks, fixes Sparkworks spawners and prop destruction, and repairs additional save-migration cases.'
+  - question: 'Did Patch 1.0.1 change builds?'
+    answer: 'It tuned the wand lines: Whirlwind Crescendo costs less stamina, Wand Evasion Attack costs less mana, the Aerial Wand Attack now costs 40 mana instead of stamina, and blocking no longer boosts wand attack frequency via animation cancels.'
+  - question: 'My Early Access save failed to migrate. What now?'
+    answer: 'Try again on the current version. Hotfix 1.0.0.3 improved the migration process and Patch 1.0.1 fixed several more cases that triggered errors. Note: in 1.0.0.3 cases where the Flame Altar had to be repositioned, the affected base''s water cannot load and must be re-added.'
+  - question: 'Is Enshrouded Steam Deck verified?'
+    answer: 'Yes. Valve verified Enshrouded 1.0 for Steam Deck, announced by Keen Games on October 23, 2026.'
+---
+
+import Callout from '~/components/mdx/Callout.astro';
+
+**Patch 1.0.1.0** landed on **November 2, 2026** (build 1283531) — the first real patch after 1.0. Keen Games packed roughly a hundred fixes into it, so this page carries the condensed version: the changes that actually alter how you fight, build and progress, each linked to the guide it affects. The [official changelog on Steam](https://store.steampowered.com/news/app/1203620/view/694276363007298066) remains the authority for the full list.
+
+<Callout type="info" title="The short version">
+  Patch 1.0.1 in one breath: **bosses no longer heal while you kite them at range**, **wand lines got rebalanced** (three cost changes + a block-cancel exploit fix), **Sparkworks builds survive combat** (spawners fixed, props attack-proof), and **save migration got safer** — if your EA save failed to migrate before, retry on this version. Nothing here changes the level cap, the zone route or the nine-spells picture.
+</Callout>
+
+## Patch 1.0.1.0 — what changed (November 2, 2026)
+
+### Combat and bosses
+
+- **Bosses stay engaged longer** — even when players attack from far away. The changelog calls out ranged fights against the **Fell Monstrosity**, which previously started recovering health while you were still shooting it.
+- The **shielded Ancient Construct** now has phases where its shield is on cooldown.
+- **Fell Vinebloom's** area attack deals less poison damage, and **Scavenger proximity mines** have a smaller explosion radius.
+- Several cases of **enemies spawning at the wrong level for their region** were fixed; **elite flying critters now give more XP**, and the flying-critter pile in the Kindlewaste Hollow Hall was thinned out.
+- Quality-of-life: it is easier to target enemies next to Cyclopses, defeated enemies usually no longer need a double interaction before looting, and fewer Fell enemies drop with no loot (a further fix for that is already announced for the next update).
+
+### Wand and build balance
+
+- **Whirlwind Crescendo** costs less stamina.
+- **Wand Evasion Attack** costs less mana, and the **Aerial Wand Attack now costs 40 mana instead of stamina**.
+- The **wand animation-cancel exploit is fixed** — blocking between shots can no longer unnaturally boost attack frequency. Wand rotations that relied on it play differently now.
+- **Lupa's scalper daggers** correctly enable the riposte kick ability when wielded.
+- **Sprint can be set to toggle** in the keyboard & mouse settings.
+
+### Sparkworks and building
+
+- **Enemy spawners spawn the correct enemies** — the fix for Sparkworks arenas built on the spawner output.
+- **Props that are part of a Sparkworks setup can no longer be destroyed by attacks** from players or enemies (dismantling still works) — your wired contraptions survive the fights they stage.
+- The **Sparkworks tutorial opens at the workbench**, and the workbench now appears in the workshops overview menu.
+- Building fixes: water wheels rotate correctly, destructible props show a grey health bar, several Ancient props are sturdier, and the pickaxe can destroy props in flying build mode.
+
+### Progression, recipes, early game
+
+- **Food options were added before and inside the first cave** so new characters no longer starve before reaching the first wider area — and **purple berries are easier to spot**.
+- **Two more craftable versions of lore weapons** were added, and the **Ashwind Strider / Sky Specter** armor-set name-and-description swap was fixed.
+- Recipe tweaks: crab cakes accept any milk, the goo recipe now also unlocks from the Revelwood Shroud mushroom, big farm animal beds accept any wood, **Azure Russula seedlings are cheaper**, and **basalt was removed as loot from some terrain** so certain recipes no longer unlock too early.
+- Animal husbandry: fish no longer secretly occupy beds and block other animals from reproducing.
+
+### Saves and PC fixes
+
+- Several cases that **caused save-data migration errors were fixed** — the changelog explicitly asks players who hit migration issues before to **try the migration again** with this update.
+- The memory budget for **very large numbers of player bases** during migration was increased.
+- **Skills and attacks no longer stop working after several hours** of play; multiplayer is more stable when hosting worlds with very large bases.
+- PC-specific: new graphics settings for AMD cards, an evade-keybinding fix, and the 3D-resolution-scale slider no longer lies about being 100% after a reset.
+
+## Hotfix 1.0.0.3 (October 21, 2026)
+
+- **Early Access rewards** that were missing now show as redeemable in the pause menu.
+- Crash fixes: water simulation, factories, recipe lists with an active filter, and several random crashes.
+- **Save migration improvements**: characters with invalid backpack-slot entries migrate correctly, and a misplaced Flame Altar is repositioned during migration — note that in those cases the base's **water cannot load and must be re-added**.
+- An **endless black screen when loading multiplayer games** was fixed, along with light flicker in very large bases and a **V-Sync stutter on AMD GPUs**.
+
+## Steam Deck Verified (October 23, 2026)
+
+Valve verified Enshrouded 1.0 for **Steam Deck** — announced by Keen Games on October 23. If you were waiting to play Embervale handheld, this was the signal. No gameplay changes came with it.
+
+## What it means for your route
+
+- **Builds**: the wand lines got the most direct tuning — if you run a staff/wand mage or hybrid, re-check your rotation against the [1.0 builds overview](/guides/tier-list/). Melee and summoner lines are mostly untouched by this patch.
+- **Endgame**: ranged boss fights are far more reliable now — relevant for the [Cinder's Cradle](/guides/cinders-cradle/) bosses and every kiting-heavy encounter before it.
+- **Builders**: spawner-driven arenas and wired contraptions behave as designed; the [Sparkworks guide](/guides/sparkworks/) covers the system itself.
+- **New or returning**: the early-game food additions and the migration retry advice both land in the [post-1.0 beginner route](/guides/beginner-guide/).
+
+## Sources, dated
+
+- [Changelog for Patch #1 (1.0.1.0)](https://store.steampowered.com/news/app/1203620/view/694276363007298066) — Keen Games, November 2, 2026 (build 1283531).
+- [Changelog for Hotfix 1.0.0.3](https://store.steampowered.com/news/app/1203620/view/694275728822239679) — Keen Games, October 21, 2026 (build 1273043).
+- Steam Deck Verified announcement — Keen Games, October 23, 2026.
+- Patch 1.0.1 also added a news link to [enshrouded.com](https://enshrouded.com) in the game's main menu — the official site for future updates.
+
+This page condenses the official changelogs and was last checked on **November 3, 2026**. The official changelog is the authority; when the next patch lands, this page updates with the same treatment.
