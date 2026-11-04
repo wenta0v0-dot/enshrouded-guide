@@ -38,7 +38,7 @@
  */
 @layer base {
   :root {
-    /* Light mode theme color — Anvil orange (forge fire). */
+    /* Light mode theme color — Anvil ember (forge fire, hue 22). */
     --brand: 22 76% 43%;
     --brand-light: 22 76% 53%;
     /* Split H/S for derived shades (e.g. darker button backgrounds). */
@@ -51,35 +51,42 @@
   }
 
   .dark {
-    /* Dark mode theme color — slightly deeper. */
-    --brand: 22 71% 39%;
-    --brand-light: 22 71% 49%;
+    /* Dark mode theme color — the ember burns brighter on the Shroud night:
+       --brand-light lands on #ff7a33 (fumadocs-orange), AA-safe on #0d0d0c. */
+    --brand: 22 95% 52%;
+    --brand-light: 22 100% 60%;
     --brand-h: 22;
-    --brand-s: 71%;
-    --brand-text: var(--brand-h) var(--brand-s) 52%;
+    --brand-s: 95%;
+    --brand-text: 22 100% 62%;
   }
 }
 
 /* Other design tokens — these reference --brand, so they auto-follow theme changes. */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
-    --border: 214 32% 91%;
+    /* Warm parchment surfaces — the Ancient-carved-stone register of the
+       fumadocs light docs, tinted warm instead of clinical gray. */
+    --background: 40 33% 98%;
+    --foreground: 24 10% 10%;
+    --muted: 40 22% 94%;
+    --muted-foreground: 25 6% 40%;
+    --border: 40 14% 87%;
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 24 10% 10%;
+    /* fumadocs docs surfaces use a ~10px radius; the cinema bands stay sharp. */
+    --radius: 0.625rem;
   }
 
   .dark {
-    --background: 222 47% 7%;
-    --foreground: 210 40% 98%;
-    --muted: 217 33% 14%;
-    --muted-foreground: 215 20% 65%;
-    --border: 217 33% 18%;
-    --card: 222 47% 10%;
-    --card-foreground: 210 40% 98%;
+    /* Shroud-night surfaces: warm near-black #0d0d0c with bone-white text
+       #ece7da (the Ancient-bone register), not clinical blue-gray. */
+    --background: 30 6% 5%;
+    --foreground: 45 30% 90%;
+    --muted: 30 5% 10%;
+    --muted-foreground: 38 7% 63%;
+    --border: 33 6% 16%;
+    --card: 30 5% 7%;
+    --card-foreground: 45 30% 90%;
   }
 
   /* AMOLED black (html.dark.black) — pure-black surfaces for OLED phones:
@@ -95,14 +102,15 @@
   /**
    * Cinema surface tokens — intentionally theme-independent. The homepage's
    * hero, trailer band and closing frame stay dark on purpose: they are a
-   * "screening room" inside the wiki, not another light/dark surface. Every
-   * scrim and button on those bands reads these tokens, so a fork re-theming
-   * the site still gets a coherent film palette.
+   * "screening room" inside the wiki, not another light/dark surface. Values
+   * align with the fumadocs landing register: warm near-black #0b0908, bone
+   * paper, dark ink. Every scrim and button on those bands reads these
+   * tokens, so a fork re-theming the site still gets a coherent film palette.
    */
   :root {
-    --cinema-bg: 240 17% 3%;
-    --cinema-paper: 38 44% 91%;
-    --cinema-ink: 24 20% 7%;
+    --cinema-bg: 30 9% 4%;
+    --cinema-paper: 45 33% 90%;
+    --cinema-ink: 26 15% 8%;
   }
 }
 
@@ -190,9 +198,37 @@
     background-color: hsl(var(--muted));
   }
 
-  /* Small caps-style label used across the cinematic homepage surfaces. */
+  /* Fumadocs-flavored prose polish: tight display headings, terminal-flavored
+     inline code, quiet hairlines. Plain-CSS overrides so they out-rank the
+     typography plugin defaults without specificity games. */
+  .prose :where(h1, h2, h3, h4) {
+    letter-spacing: -0.015em;
+  }
+  .prose :where(code):not(:where(pre code))::before,
+  .prose :where(code):not(:where(pre code))::after {
+    content: none;
+  }
+  .prose :where(code):not(:where(pre code)) {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+    font-size: 0.875em;
+    font-weight: 500;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.375rem;
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--muted));
+  }
+  .prose :where(pre) {
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.75rem;
+  }
+  .prose :where(hr) {
+    border-color: hsl(var(--border));
+  }
+
+  /* Small caps-style label used across the cinematic homepage surfaces —
+     monospace, the fumadocs "Geist Pixel" terminal-label register. */
   .cinema-eyebrow {
-    @apply text-[10px] font-semibold uppercase tracking-[0.3em];
+    @apply font-mono text-[10px] font-semibold uppercase tracking-[0.3em];
   }
 
   /* Film-grain + vignette overlays. Purely decorative, never interactive. */

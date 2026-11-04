@@ -27,22 +27,22 @@ const { type = 'info', title } = Astro.props;
 const styles: Record<CalloutType, { icon: string; box: string; iconColor: string }> = {
   info: {
     icon: 'lucide:info',
-    box: 'border-nav/40 bg-nav/5',
+    box: 'border-nav/25 border-l-2 border-l-nav bg-nav/[0.06]',
     iconColor: 'text-nav',
   },
   tip: {
     icon: 'lucide:lightbulb',
-    box: 'border-nav/40 bg-nav/5',
+    box: 'border-nav/25 border-l-2 border-l-nav bg-nav/[0.06]',
     iconColor: 'text-nav',
   },
   warn: {
     icon: 'lucide:alert-triangle',
-    box: 'border-amber-500/40 bg-amber-500/10',
+    box: 'border-amber-500/30 border-l-2 border-l-amber-500 bg-amber-500/[0.08]',
     iconColor: 'text-amber-600 dark:text-amber-400',
   },
   danger: {
     icon: 'lucide:octagon-alert',
-    box: 'border-red-500/40 bg-red-500/10',
+    box: 'border-red-500/30 border-l-2 border-l-red-500 bg-red-500/[0.08]',
     iconColor: 'text-red-600 dark:text-red-400',
   },
 };

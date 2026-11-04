@@ -61,6 +61,7 @@ Content layer (src/content, src/locales)                   — fully replace per
 12. **`wrangler.toml` 接管 Cloudflare Pages env** — 当 `wrangler.toml` 存在时,它是 Pages 项目 env 的唯一真相源,dashboard 的 Environment variables UI 被完全忽略([官方文档](https://developers.cloudflare.com/pages/functions/wrangler-configuration/))。所有构建时 env 变量必须在 `wrangler.toml` 的 `[vars]` 段声明。fork 用户须知:要么改 `[vars]` 值,要么删 `wrangler.toml` 让 dashboard 接管。详见 `docs/deployment.md`。
 13. **复杂度预算** — 新能力先判定归属层(**核心模板** / 可选插件 / 运维工具 `tools/` / 文档 SOP),不全进主运行时;UI JSON 一律走结构化类型(`getUi` → `typeof en` / `SharedUi`),禁止 `as unknown as` 双跳断言(契约测试零容忍,动态键访问用 `keyof typeof` 收窄);核心文件(landing.ts / apply-template.ts / ArticlePage / BaseLayout 等)改动优先组件化拆分而非追加。来源:群友「誓言」外部代码审查(2026-09-15);细则见 `docs/development.md`。
 14. **全仓一致性扫描** — 任何优化(文案/版本号/功能/文档)必须全仓一致性扫描:landing 中英、README、docs、AGENTS、skills、双语 JSON、版本号各处同步更新,禁止「这里更新了那里还是旧版」;提交前 grep 旧文案/旧卖点并列检查清单。来源:用户工作指令(2026-08-15);发版同步面见 `docs/development.md` 发版清单。
+15. **UI 先读 design.md** — 任何新页面/视觉改动动手前,先读项目根目录 `design.md`(配色/字体/间距/组件样式的唯一规范,含 fumadocs 融合的双轨制:docs 轨圆角暖色面 / cinema 轨直角影院带);改风格先改 design.md 再动代码,颜色一律走 globals.css token,禁止硬编码 hex/rgba。来源:用户工作指令(2026-11-05)。
 
 ## i18n Fallback Rules
 
