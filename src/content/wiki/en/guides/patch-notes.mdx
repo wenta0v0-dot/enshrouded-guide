@@ -1,19 +1,21 @@
 ---
-title: 'Enshrouded Patch Notes — 1.0.1 & 1.0.1.1 (November 2026) & Post-1.0 Hotfixes'
-description: 'Patch 1.0.1.0 (Nov 2), Hotfix 1.0.1.1 (Nov 3) and Hotfix 1.0.0.3 condensed from the changelog: boss engagement, wand balance, Sparkworks, save migration.'
+title: 'Enshrouded Patch Notes — 1.0.1, 1.0.1.1 & 1.0.1.2 (November 2026)'
+description: 'Patch 1.0.1.0 (Nov 2) and Hotfixes 1.0.1.1/1.0.1.2 (Nov 3–4) condensed from the official changelog: boss engagement, wand balance, Sparkworks, stability.'
 category: 'guides'
 date: 2026-11-03
-lastModified: 2026-11-04
-tags: ['1.0', '1.0.1', '1.0.1.1', 'patch-notes', 'builds', 'cinders-cradle', 'sparkworks']
-summary: 'Enshrouded Patch 1.0.1.0 arrived on November 2, 2026: bosses stay engaged at range, wand attacks were rebalanced, Sparkworks spawners and props were fixed, and save migration got safer. This page also condenses Hotfix 1.0.1.1 (November 3) and Hotfix 1.0.0.3 (October 21) from the official changelog, with what each change means for your route.'
-gameVersion: '1.0.1.1'
+lastModified: 2026-11-06
+tags: ['1.0', '1.0.1', 'patch-notes', 'builds', 'cinders-cradle', 'sparkworks']
+summary: 'Enshrouded Patch 1.0.1.0 arrived on November 2, 2026: bosses stay engaged at range, wand attacks were rebalanced, Sparkworks spawners and props were fixed, and save migration got safer. Hotfixes 1.0.1.1 and 1.0.1.2 (November 3–4) followed with audio, texture and crash fixes, plus the unlockable Artificer vanity set.'
+gameVersion: '1.0.1.2'
 faq:
   - question: 'What is Enshrouded Patch 1.0.1?'
     answer: 'The first major update after 1.0 (version 1.0.1.0, released November 2, 2026). It keeps bosses engaged in combat at range, rebalances wand attacks, fixes Sparkworks spawners and prop destruction, and repairs additional save-migration cases.'
-  - question: 'What did Hotfix 1.0.1.1 change?'
-    answer: 'Audio and polish fixes on November 3, 2026: voice-over volume is back to normal, loot and harvesting sound effects no longer play for everyone in a multiplayer session, melting voxel wall textures are fixed, plus crash and log-spam fixes. No balance or progression changes.'
+  - question: 'What did the November hotfixes (1.0.1.1 and 1.0.1.2) change?'
+    answer: '1.0.1.1 (November 3) fixed audio and textures — voice-over volume, multiplayer sound spam, melting voxel walls. 1.0.1.2 (November 4) made pinned recipes stay pinned and fixed several crash sources (water, deprecated items and blueprints) plus a rare endless black screen on login. No balance or progression changes.'
   - question: 'Did Patch 1.0.1 change builds?'
     answer: 'It tuned the wand lines: Whirlwind Crescendo costs less stamina, Wand Evasion Attack costs less mana, the Aerial Wand Attack now costs 40 mana instead of stamina, and blocking no longer boosts wand attack frequency via animation cancels.'
+  - question: 'How do you get the Artificer vanity set?'
+    answer: 'Five parts are hidden across Embervale — speak to Mei-Yin Chen to unlock the hints in your journal. You need Mei and Loraine Crim unlocked and all Beacon Dungeons done before the first hint appears. The Star Map and Ancient Globe props come from the "Find the Orrery Rings" sidequest, and everything is also earnable via Twitch Drops.'
   - question: 'My Early Access save failed to migrate. What now?'
     answer: 'Try again on the current version. Hotfix 1.0.0.3 improved the migration process and Patch 1.0.1 fixed several more cases that triggered errors. Note: in 1.0.0.3 cases where the Flame Altar had to be repositioned, the affected base''s water cannot load and must be re-added.'
   - question: 'Is Enshrouded Steam Deck verified?'
@@ -25,7 +27,7 @@ import Callout from '~/components/mdx/Callout.astro';
 **Patch 1.0.1.0** landed on **November 2, 2026** (build 1283531) — the first real patch after 1.0. Keen Games packed roughly a hundred fixes into it, so this page carries the condensed version: the changes that actually alter how you fight, build and progress, each linked to the guide it affects. The [official changelog on Steam](https://store.steampowered.com/news/app/1203620/view/694276363007298066) remains the authority for the full list.
 
 <Callout type="info" title="The short version">
-  Patch 1.0.1 in one breath: **bosses no longer heal while you kite them at range**, **wand lines got rebalanced** (three cost changes + a block-cancel exploit fix), **Sparkworks builds survive combat** (spawners fixed, props attack-proof), and **save migration got safer** — if your EA save failed to migrate before, retry on this version. **Hotfix 1.0.1.1 (November 3)** followed a day later with audio and texture polish — whisper-quiet voice-over and melting walls are fixed. Nothing here changes the level cap, the zone route or the nine-spells picture.
+  Patch 1.0.1 in one breath: **bosses no longer heal while you kite them at range**, **wand lines got rebalanced** (three cost changes + a block-cancel exploit fix), **Sparkworks builds survive combat** (spawners fixed, props attack-proof), and **save migration got safer** — if your EA save failed to migrate before, retry on this version. **Hotfix 1.0.1.1 (November 3)** polished audio and textures, **Hotfix 1.0.1.2 (November 4)** made pinned recipes stay pinned and squashed crash sources, and the unlockable **Artificer vanity set** arrived with hints from Mei-Yin Chen. Nothing here changes the level cap, the zone route or the nine-spells picture.
 </Callout>
 
 ## Patch 1.0.1.0 — what changed (November 2, 2026)
@@ -77,6 +79,24 @@ A pure polish hotfix (build 1285601) shipped one day after Patch 1.0.1 — no ba
 - A **water-simulation crash** is fixed, and an **error message that spammed the log file** (a performance drain in itself) is gone.
 - The **Discord link was updated** in the Japanese, Korean and Traditional Chinese clients.
 
+## Hotfix 1.0.1.2 — what changed (November 4, 2026)
+
+A small stability pass (build 1287369) carrying one widely requested quality-of-life fix:
+
+- **Pinned recipes stay pinned** — the changelog thanks the "numerous!" player messages about this one.
+- Crash fixes: a **rare water crash**, crashes from **deprecated items** taken into a world, and a crash when a **deprecated blueprint** is used in-game.
+- A **very rare endless black screen when logging into certain worlds** is fixed.
+
+The postscript matters as much as the fixes: most of these were first reported by players via the in-game **F1 report** (with files attached) — that is what lets Keen Games chase them down quickly. If you hit something broken, report it the same way.
+
+## The Artificer vanity set + Twitch Drops (November 3, 2026)
+
+Not a balance change — new collectibles, announced alongside the patch wave:
+
+- The **Artificer set** (five parts) is hidden across Embervale. **Speak to Mei-Yin Chen** to unlock the hints in your journal tab. Prerequisites for the first hint: **Mei unlocked**, **Loraine Crim unlocked**, and **all Beacon Dungeons done** (and the set hunt not yet started or finished).
+- Two new craftable props — the **Star Map** and the **Ancient Globe** — unlock through the **"Find the Orrery Rings"** sidequest.
+- Everything is also earnable as **Twitch Drops** (campaign started November 3, 3pm CET): 30 min → Artificer Boots & Trousers, 60 min → Gloves, 90 min → Hope Chest, 120 min → Star Map, 180 min → Helmet, 240 min → Animated Ancient Globe.
+
 ## Hotfix 1.0.0.3 (October 21, 2026)
 
 - **Early Access rewards** that were missing now show as redeemable in the pause menu.
@@ -93,15 +113,18 @@ Valve verified Enshrouded 1.0 for **Steam Deck** — announced by Keen Games on 
 - **Builds**: the wand lines got the most direct tuning — if you run a staff/wand mage or hybrid, re-check your rotation against the [1.0 builds overview](/guides/tier-list/). Melee and summoner lines are mostly untouched by this patch.
 - **Endgame**: ranged boss fights are far more reliable now — relevant for the [Cinder's Cradle](/guides/cinders-cradle/) bosses and every kiting-heavy encounter before it.
 - **Builders**: spawner-driven arenas and wired contraptions behave as designed; the [Sparkworks guide](/guides/sparkworks/) covers the system itself.
-- **Everyone**: Hotfix 1.0.1.1 is pure polish — no route impact. If your walls looked melted or voice lines were whisper-quiet since 1.0.1, updating fixes both.
+- **Everyone**: Hotfixes 1.0.1.1 and 1.0.1.2 are pure polish and stability — no route impact. Updating fixes the melted walls, whisper-quiet voice lines and unpinned recipes.
 - **New or returning**: the early-game food additions and the migration retry advice both land in the [post-1.0 beginner route](/guides/beginner-guide/).
+- **Collectors**: the Artificer set hunt leans on endgame progress — all Beacon Dungeons done is a prerequisite — so it slots naturally after the [Cinder's Cradle](/guides/cinders-cradle/) push. The props and sidequest tie into the same Ancient-ruins thread as the [Sparkworks](/guides/sparkworks/) era of the game.
 
 ## Sources, dated
 
 - [Changelog for Patch #1 (1.0.1.0)](https://store.steampowered.com/news/app/1203620/view/694276363007298066) — Keen Games, November 2, 2026 (build 1283531).
-- [Changelog for Hotfix #4 (1.0.1.1)](https://store.steampowered.com/news/app/1203620/view/1847920302252062) — Keen Games, November 3, 2026 (build 1285601).
+- [Changelog for Hotfix #4 (1.0.1.1)](https://store.steampowered.com/news/app/1203620/view/694276363007298785) — Keen Games, November 3, 2026 (build 1285601).
+- [Artificer vanity set + Twitch Drops announcement](https://store.steampowered.com/news/app/1203620/view/694276363007298573) — Keen Games, November 3, 2026.
+- [Changelog for Hotfix #5 (1.0.1.2)](https://store.steampowered.com/news/app/1203620/view/694277000588690058) — Keen Games, November 4, 2026 (build 1287369).
 - [Changelog for Hotfix 1.0.0.3](https://store.steampowered.com/news/app/1203620/view/694275728822239679) — Keen Games, October 21, 2026 (build 1273043).
 - Steam Deck Verified announcement — Keen Games, October 23, 2026.
 - Patch 1.0.1 also added a news link to [enshrouded.com](https://enshrouded.com) in the game's main menu — the official site for future updates.
 
-This page condenses the official changelogs and was last checked on **November 4, 2026**. The official changelog is the authority; when the next patch lands, this page updates with the same treatment.
+This page condenses the official changelogs and was last checked on **November 6, 2026**. The official changelog is the authority; when the next patch lands, this page updates with the same treatment.
