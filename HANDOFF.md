@@ -38,6 +38,7 @@
 
 ## 5. 内容更新记录
 
+- **2026-11-21**:例行复验,零新内容——Steam RSS / enshrouded.com/news / YouTube 频道(频道页直抓解析)三渠道 11-10 livestream 之后无任何新条目;patch-notes 页脚「last checked」刷至 11-21,frontmatter lastModified 有意不动。
 - **2026-11-14**:例行复验,零攻略相关新内容——Steam RSS / enshrouded.com/news / YouTube 频道(频道页直抓解析)三渠道 11-04 后唯一新条目为 11-10 Steam 页面 livestream 展示(素材来自 JuiceHead3,无玩法/平衡改动);patch-notes 页脚「last checked」刷至 11-14 并附 livestream 链接,frontmatter lastModified 有意不动。
 - **2026-11-08**:例行复验,零新内容——Steam RSS / enshrouded.com/news / YouTube 频道(频道页直抓解析,lockupViewModel 结构)三渠道最新均止于 11-04(1.0.1.2);patch-notes 页脚「last checked」刷至 11-08 并注明三渠道核验口径,frontmatter lastModified 有意不动(无内容变更不漂移 sitemap 日期)。
 - **2026-11-06**:补丁复更——patch-notes 页补 Hotfix #5(1.0.1.2,11-04,build 1287369:固定配方钉住修复/水资源崩溃/弃用物品与蓝图崩溃/登录黑屏)与 11-03 Artificer 套装公告(5 件隐藏收集,Mei+Loraine+全部 Beacon Dungeon 前置;Star Map/Ancient Globe 道具走「Find the Orrery Rings」支线;Twitch Drops 11-03 15:00 CET 起按 30/60/90/120/180/240 分钟掉落);gameVersion→1.0.1.2,lastModified→11-06;修正 Hotfix #4 源链接 ID(RSS 实证 694276363007298785,原 1847920302252062 为错误 ID);FAQ 增 Artificer 获取条。官方频道无新视频。
